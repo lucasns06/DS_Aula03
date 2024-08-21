@@ -266,8 +266,7 @@ namespace Aula03Colecoes // Note: actual namespace depends on the project name.
         }
         public static void BuscarPorNomeAproximado()
         {
-            string nome = Console.ReadLine();
-            lista = lista.FindAll(x => x.Nome.ToLower().Contains(nome));   
+            lista = lista.FindAll(x => x.Nome.ToLower().Contains(ronaldo));   
             ExibirLista();
         }
         public static void BuscarPorCpfRemover()
@@ -286,7 +285,16 @@ namespace Aula03Colecoes // Note: actual namespace depends on the project name.
         //Métodos da atividade da aula 03, contendo 6 métodos.
         public static void ObterPorNome()
         {
-           
+            string nome = Console.ReadLine();
+            lista = lista.FindAll(x => x.Nome.ToLower().Contains(nome));  
+            if(lista.FindAll = null)
+            {
+                Console.WriteLine("nome nao encontrado na lista");
+            }
+            else
+            {
+            ExibirLista();
+            }
         }
         public static void ObterFuncionariosRecentes()
         {
@@ -308,7 +316,15 @@ namespace Aula03Colecoes // Note: actual namespace depends on the project name.
         }
         public static void ValidarNome()
         {
-            
+            string nome = Console.ReadLine();
+            if(nome.Length < 2)
+            {
+                Console.WriteLine("Erro, nome muito pequeno!!");
+            }else
+            {
+                Console.WriteLine("Nome validado! Adicione o funcionário: ");
+                AdicionarFuncionario();
+            }
         }
         public static void ObterPorTipo()
         {
