@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.AccessControl;
+using System.Security.Cryptography.X509Certificates;
 using Aula03Colecoes.Models;
 using Aula03Colecoes.Models.Enuns;
 namespace Aula03Colecoes // Note: actual namespace depends on the project name.
@@ -266,7 +268,7 @@ namespace Aula03Colecoes // Note: actual namespace depends on the project name.
         }
         public static void BuscarPorNomeAproximado()
         {
-            lista = lista.FindAll(x => x.Nome.ToLower().Contains(ronaldo));   
+            lista = lista.FindAll(x => x.Nome.ToLower().Contains("ronaldo"));   
             ExibirLista();
         }
         public static void BuscarPorCpfRemover()
@@ -282,25 +284,30 @@ namespace Aula03Colecoes // Note: actual namespace depends on the project name.
             lista.RemoveAll(x => x.Id < 4);
             ExibirLista();
         } 
-        //Métodos da atividade da aula 03, contendo 6 métodos.
+        /*
+        Métodos da atividade da aula 03, contendo 6 métodos.
+        */
         public static void ObterPorNome()
         {
+            Funcionario x = new Funcionario();
+            Console.Write("Digite: ");
             string nome = Console.ReadLine();
             lista = lista.FindAll(x => x.Nome.ToLower().Contains(nome));  
-            if(lista.FindAll = null)
+            if(lista != null)
             {
-                Console.WriteLine("nome nao encontrado na lista");
+                ExibirLista();
             }
             else
             {
-            ExibirLista();
+            //nao consegui fazer :(
+            Console.WriteLine("nome nao encontrado na lista");
             }
         }
         public static void ObterFuncionariosRecentes()
         {
             
             lista.RemoveAll(x => x.Id < 4);
-            lista = lista.OrderBy(x => x.Salario).ToList();
+            lista = lista.OrderByDescending(x => x.Salario).ToList();
             ExibirLista();
         }
         public static void ObterEstatisticas()
@@ -312,12 +319,35 @@ namespace Aula03Colecoes // Note: actual namespace depends on the project name.
         }
         public static void ValidarSalarioAdmissao()
         {
-            
+            Funcionario f = new Funcionario();
+            Console.Write("Digite o salário:  ");
+            f.Salario = decimal.Parse(Console.ReadLine());
+
+            Console.Write("Digite a data de admissão:  ");
+            f.DataAdmissao = DateTime.Parse(Console.ReadLine());
+
+            if(f.Salario < 0)
+            {
+                Console.WriteLine("não e possivel adicionar este funcionario, sem salario ele é oq escravo?");
+            }
+            else
+            {
+                Console.WriteLine("Salário OK");    
+            }
+            if(f.DataAdmissao < DateTime.Now)
+            {
+                Console.WriteLine("Data de admissão anterior a data atual");
+            }
+            else
+            {
+                Console.WriteLine("Data OK!");
+            }
         }
         public static void ValidarNome()
         {
+            Console.Write("Digite: ");
             string nome = Console.ReadLine();
-            if(nome.Length < 2)
+            if(nome.Length <= 2)
             {
                 Console.WriteLine("Erro, nome muito pequeno!!");
             }else
@@ -328,7 +358,22 @@ namespace Aula03Colecoes // Note: actual namespace depends on the project name.
         }
         public static void ObterPorTipo()
         {
-            
+            //Aprendiz e CLT
+            Console.WriteLine("CLT: 1 || APRENDIZ: 2");
+            Console.Write("Digite: ");
+            int tipo = int.Parse(Console.ReadLine());
+
+            switch(tipo)
+            {
+                case 1: 
+                    lista = lista.FindAll( x => x.TipoFuncionario == TipoFuncionarioEnum.CLT);
+                    ExibirLista();
+                break;
+                case 2:
+                    lista = lista.FindAll( x => x.TipoFuncionario == TipoFuncionarioEnum.Aprendiz);
+                    ExibirLista();
+                break;
+            }
         }
     }
 }
